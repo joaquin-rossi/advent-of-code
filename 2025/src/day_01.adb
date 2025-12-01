@@ -6,7 +6,7 @@ use Ada.Numerics.Big_Numbers.Big_Integers;
 use Ada.Strings.Unbounded;
 use Ada;
 
-procedure Aoc_01 is
+procedure Day_01 is
     type Direction is (L, R);
 
     Dial_Mod : constant Big_Integer := 100;

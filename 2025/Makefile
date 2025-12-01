@@ -2,7 +2,7 @@
 
 all: build
 
-build: build/aoc_01
+build: build/day_01
 
 clean:
 	rm -rf build
@@ -10,6 +10,6 @@ clean:
 ADAFLAGS = -gnat2022 -O2
 LDFLAGS =
 
-build/aoc_01: src/aoc_01.adb
+build/day_01: src/day_01.adb
 	@mkdir -p $(dir $@)
 	gnatmake -D build $^ -o $@ $(ADAFLAGS) $(LDFLAGS)
