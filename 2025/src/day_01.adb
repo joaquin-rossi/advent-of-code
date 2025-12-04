@@ -15,8 +15,8 @@ procedure Day_01 is
     Rot_Dir  : Direction;
     Rot_Num  : Big_Integer;
 
-    Silver_Count : Big_Integer := 0;
-    Gold_Count   : Big_Integer := 0;
+    Silver : Big_Integer := 0;
+    Gold   : Big_Integer := 0;
 begin
     while not End_Of_File loop
         Rot_Line := To_Unbounded_String (Get_Line);
@@ -32,19 +32,19 @@ begin
                      when L => -Rot_Num,
                      when R => +Rot_Num);
 
-            Gold_Count := Gold_Count + abs (Dial_New_Pos) / Dial_Mod;
+            Gold := Gold + abs (Dial_New_Pos) / Dial_Mod;
             if Dial_Pos /= 0 and then Dial_New_Pos <= 0 then
-                Gold_Count := Gold_Count + 1;
+                Gold := Gold + 1;
             end if;
 
             Dial_Pos := Dial_New_Pos mod Dial_Mod;
         end;
 
         if Dial_Pos = 0 then
-            Silver_Count := Silver_Count + 1;
+            Silver := Silver + 1;
         end if;
     end loop;
 
-    Put_Line ("Silver: " & Silver_Count'Image);
-    Put_Line ("Gold: " & Gold_Count'Image);
+    Put_Line ("Silver: " & Silver'Image);
+    Put_Line ("Gold: " & Gold'Image);
 end;
