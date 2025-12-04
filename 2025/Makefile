@@ -2,7 +2,7 @@
 
 all: build
 
-build: build/day_01 build/day_02
+build: build/day_01 build/day_02 build/day_03
 
 clean:
 	rm -rf build
