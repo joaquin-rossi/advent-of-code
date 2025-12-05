@@ -1,1 +1,5 @@
-![Día 04](day_04_viz.gif)
+# 2025
+
+## Día 04
+
+![Día 04](viz/day_04.gif)
