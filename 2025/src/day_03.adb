@@ -28,6 +28,7 @@ procedure Day_03 is
                     MAX_I := I;
                     MAX_N := N;
                 end if;
+                exit when MAX_N = 9;
             end;
 
         end loop;
