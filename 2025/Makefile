@@ -7,7 +7,8 @@ build: \
 	build/day_02 \
 	build/day_03 \
 	build/day_04 \
-	build/day_04_viz
+	build/day_04_viz \
+	build/day_05
 
 clean:
 	rm -rf build
