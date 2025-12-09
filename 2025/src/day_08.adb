@@ -15,23 +15,16 @@ use Ada;
 
 procedure Day_08 is
     type Point is record
-        X : Integer;
-        Y : Integer;
-        Z : Integer;
+        X : Big_Integer;
+        Y : Big_Integer;
+        Z : Big_Integer;
     end record;
 
-    function Square (X : Long_Float) return Long_Float is
-    begin
-        return X * X;
-    end;
+    function Square (X : Big_Integer) return Big_Integer
+    is (X * X);
 
-    function Dist2 (A : Point; B : Point) return Long_Float is
-    begin
-        return
-           Square (Long_Float (A.X - B.X))
-           + Square (Long_Float (A.Y - B.Y))
-           + Square (Long_Float (A.Z - B.Z));
-    end;
+    function Dist2 (A : Point; B : Point) return Big_Integer
+    is (Square (A.X - B.X) + Square (A.Y - B.Y) + Square (A.Z - B.Z));
 
     package Int_Vecs is new
        Vectors (Index_Type => Positive, Element_Type => Integer);
@@ -44,8 +37,8 @@ procedure Day_08 is
     Points : P_Vecs.Vector;
 
     type Circuit is record
-        Id     : Integer;
-        Parent : Integer;
+        Id     : Positive;
+        Parent : Positive;
         Size   : Integer;
     end record;
 
@@ -57,12 +50,12 @@ procedure Day_08 is
 
     Circuits : Int_Circuit_Maps.Map;
 
-    procedure Add (N : Integer) is
+    procedure Add (N : Positive) is
     begin
         Insert (Circuits, N, (Id => N, Parent => N, Size => 1));
     end;
 
-    function Find (N : Integer) return Integer is
+    function Find (N : Positive) return Positive is
     begin
         declare
             C : Circuit_Ref := Reference (Circuits, N);
@@ -76,7 +69,7 @@ procedure Day_08 is
         end;
     end;
 
-    procedure Union (A : Integer; B : Integer) is
+    procedure Union (A : Positive; B : Positive) is
         X : Circuit_Ref := Reference (Circuits, Find (A));
         Y : Circuit_Ref := Reference (Circuits, Find (B));
     begin
@@ -94,8 +87,8 @@ procedure Day_08 is
     end;
 
     type Pair is record
-        Dist2 : Long_Float;
-        I, J  : Integer;
+        Dist2 : Big_Integer;
+        I, J  : Positive;
     end record;
 
     function "<" (L, R : Pair) return Boolean
@@ -108,7 +101,7 @@ procedure Day_08 is
     Pairs_C : Pair_Sets.Cursor;
 
     Num_Pairs_Silver : Integer;
-    Silver           : Integer;
+    Silver           : Big_Integer;
     Gold             : Big_Integer;
 begin
     if Command_Line.Argument_Count /= 1 then
@@ -123,9 +116,9 @@ begin
             Comma_1 : Positive := Index (Line, ",", 1);
             Comma_2 : Positive := Index (Line, ",", Comma_1 + 1);
         begin
-            P.X := Integer'Value (Slice (Line, 1, Comma_1 - 1));
-            P.Y := Integer'Value (Slice (Line, Comma_1 + 1, Comma_2 - 1));
-            P.Z := Integer'Value (Slice (Line, Comma_2 + 1, Length (Line)));
+            P.X := From_String (Slice (Line, 1, Comma_1 - 1));
+            P.Y := From_String (Slice (Line, Comma_1 + 1, Comma_2 - 1));
+            P.Z := From_String (Slice (Line, Comma_2 + 1, Length (Line)));
 
             Append (Points, P);
             Add (Last_Index (Points));
@@ -188,7 +181,10 @@ begin
 
         Sort (First_Index (Sizes), Last_Index (Sizes));
 
-        Silver := Sizes (1) * Sizes (2) * Sizes (3);
+        Silver :=
+           To_Big_Integer (Sizes (1))
+           * To_Big_Integer (Sizes (2))
+           * To_Big_Integer (Sizes (3));
     end;
 
     Put_Line ("Silver:" & Silver'Image);
@@ -207,8 +203,7 @@ begin
             Pairs_C := Next (Pairs_C);
         end loop;
 
-        Gold :=
-           To_Big_Integer (Points (P.I).X) * To_Big_Integer (Points (P.J).X);
+        Gold := Points (P.I).X * Points (P.J).X;
     end;
 
     Put_Line ("Gold:" & Gold'Image);
