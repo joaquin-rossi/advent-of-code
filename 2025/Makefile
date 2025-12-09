@@ -8,12 +8,13 @@ build: \
 	build/day_03 \
 	build/day_04 \
 	build/day_04_viz \
-	build/day_05
+	build/day_05 \
+	build/day_06
 
 clean:
 	rm -rf build
 
-ADAFLAGS = -gnat2022 -O2
+ADAFLAGS = -gnat2022 -O2 -gnatf
 LDFLAGS =
 
 .PHONY: $(shell find src -name '*.adb')
